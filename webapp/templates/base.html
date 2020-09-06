@@ -1,0 +1,62 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Import the Bootstrap stylesheet -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<!-- Import our custom stylesheet -->	
+	<title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light flex-nowrap">
+    <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbar5">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <span class="navbar-brand w-100">Secure Upload</span>
+    <div class="navbar-collapse collapse w-100 justify-content-center" id="navbar5">
+        <ul class="navbar-nav mx-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
+			</li> 
+			{% if current_user.is_authenticated %}
+			<li class="nav-item">
+				<a class="nav-link" href="{{ url_for('main.upload') }}">Upload</a>
+			</li> 
+			{% endif %}
+			{% if not current_user.is_authenticated %}
+			<li class="nav-item">
+				<a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+			</li> 
+			<li class="nav-item">
+				<a class="nav-link" href="{{ url_for('auth.signup') }}">Sign Up</a>
+			</li> 
+			{% endif %}
+			{% if current_user.is_authenticated %}
+			<li class="nav-item">
+				<a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+			</li> 
+			{% endif %}
+        </ul>
+    </div>
+    <div class="w-100"><!--spacer--></div>
+</nav>
+
+   
+  <div class="text-center">
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Import jquery 3.3.1 slim min -->
+  <script src="{{ url_for('static', filename='js/jquery-3.0.0.slim.min.js') }}"></script>
+  <!-- Import Bootstrap bundle -->
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <!-- Import our custom JavaScript --> 
+  {% block script %}{% endblock %}
+</body>
+
+</html>

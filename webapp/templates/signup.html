@@ -1,0 +1,39 @@
+<!-- templates/signup.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <h3 class="title">Sign Up</h3>    
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+            </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="/signup">
+            <div class="form-group">
+			<label for="email">Email address:</label>
+			<input type="email" class="form-control" placeholder="Enter email" name="email" id="email">
+		  </div>
+		  <div class="form-group">
+			<label for="name">Name:</label>
+			<input type="text" class="form-control" placeholder="Enter name" name="name" id="name">
+		  </div>	
+		  <div class="form-group">
+			<label for="home">Upload directory name:</label>
+			<input type="text" class="form-control" placeholder="Enter directory name" name="home" id="home">
+		  </div>	
+		  <div class="form-group">
+			<label for="pwd">Password:</label>
+			<input type="password" class="form-control" placeholder="Enter password" name="password" id="pwd">
+		  </div>		  
+		  <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div> 
+  </div>
+</div>
+{% endblock %}
